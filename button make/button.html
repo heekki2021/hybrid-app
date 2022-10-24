@@ -69,7 +69,13 @@
             const y = event.clientY - ctx.canvas.offsetTop;
 
 
-            if ((btn1.xpoint > x && (btn1.xpoint + 50))&& btn1.ypoint > 100 && btn1.xpoint +50 )
+            if ((btn1.xpoint > x && (btn1.xpoint + 50) < x )&& btn1.ypoint > y && (btn1.ypoint + 50) < y ){
+                ctx.beginPath();
+                ctx.fillStyle = blue;
+                ctx.rect(btn1.xpoint,btn1.ypoint,btn1.row,btn1.column);
+                ctx.fill();
+                ctx.closePath();
+            }
             
         }
 
