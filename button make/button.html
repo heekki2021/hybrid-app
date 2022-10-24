@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #canvas1{
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="hype">test</h1>
+    <canvas id="canvas1" width="500px" height="500px">
+
+    
+    </canvas>
+    <script>
+        const canvas = document.getElementById("canvas1")
+        const ctx = canvas.getContext('2d');
+
+
+       
+        ctx.fillStyle = "green";
+        ctx.rect(20,20,50,50);
+        ctx.fill();
+        ctx.closePath();
+        var h1test = document.getElementById('hype');
+        h1test.innerHTML = "testtest";
+
+
+        
+
+        
+
+        class rect1 {
+            constructor(xpoint, ypoint, row, column, color){
+                this.xpoint = xpoint;
+                this.ypoint = ypoint;
+                this.row = row;
+                this.column = column;
+                this.color = color;
+            }
+            
+            draw(ctx){
+                ctx.beginPath();
+                ctx.fillStyle = this.color;
+                ctx.rect(this.xpoint,this.ypoint,this.row,this.column);
+                ctx.fill();
+                ctx.closePath();
+            }
+        }
+
+        var btn1 = new rect1(100,100,150,150,'blue');
+        btn1.draw(ctx);
+
+        var btn2 = new rect1(300,300,30,30,'orange')
+        btn2.draw(ctx);
+
+
+
+        canvas.onmousemove = function(event){
+
+        
+            
+            const x = event.clientX - ctx.canvas.offsetLeft;
+            const y = event.clientY - ctx.canvas.offsetTop;
+
+
+            if ((btn1.xpoint > x && (btn1.xpoint + 50))&& btn1.ypoint > 100 && btn1.xpoint +50 )
+            
+        }
+
+
+    </script>
+</body>
+</html>

@@ -10,6 +10,12 @@
     justify-content: center;
 }
 
+.date{
+    margin: 10px 15px;
+    border: 1px solid purple;
+    width: 30px;
+}
+
 #year_L_button {
     width: 100px;
     height: 50px;
