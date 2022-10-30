@@ -7,7 +7,7 @@
     <title>Document</title>
     <style>
         #canvas1{
-            background-color: yellow;
+            /* background-color: yellow; */
         }
     </style>
 </head>
@@ -20,31 +20,22 @@
     <script>
         const canvas = document.getElementById("canvas1")
         const ctx = canvas.getContext('2d');
+        canvas.style.backgroundColor = "#bbf"
 
-
-       
-        ctx.fillStyle = "green";
-        ctx.rect(20,20,50,50);
-        ctx.fill();
-        ctx.closePath();
-        var h1test = document.getElementById('hype');
-        h1test.innerHTML = "testtest";
-
-
+        const rects = [];
         
-
-        
-
-        class rect1 {
-            constructor(xpoint, ypoint, row, column, color){
+        class rect1{
+            constructor(xpoint, ypoint, row, column, color, btncount){
                 this.xpoint = xpoint;
                 this.ypoint = ypoint;
                 this.row = row;
                 this.column = column;
                 this.color = color;
+                this.btncount = btncount;
             }
-            
-            draw(ctx){
+
+        
+            draw(){
                 ctx.beginPath();
                 ctx.fillStyle = this.color;
                 ctx.rect(this.xpoint,this.ypoint,this.row,this.column);
@@ -53,32 +44,135 @@
             }
         }
 
-        var btn1 = new rect1(100,100,150,150,'blue');
-        btn1.draw(ctx);
-
-        var btn2 = new rect1(300,300,30,30,'orange')
-        btn2.draw(ctx);
 
 
-
-        canvas.onmousemove = function(event){
-
+        const colorM = [];
+        let btncount=0;
+        let clickState = false;
+        let moveState = false;
+        // var btn1 = new rect1(100,100,150,150,'blue');
+        // btn1.draw(ctx);
         
-            
-            const x = event.clientX - ctx.canvas.offsetLeft;
-            const y = event.clientY - ctx.canvas.offsetTop;
 
+        function makeBtn(x, y, width, height ,color){
+            this.x = x;
+            this.y = y;
+            this.width = width;
+            this.height = height;
+            this.color = color;
+            this.btncount = btncount
 
-            if ((btn1.xpoint > x && (btn1.xpoint + 50) < x )&& btn1.ypoint > y && (btn1.ypoint + 50) < y ){
-                ctx.beginPath();
-                ctx.fillStyle = blue;
-                ctx.rect(btn1.xpoint,btn1.ypoint,btn1.row,btn1.column);
-                ctx.fill();
-                ctx.closePath();
-            }
+            rects.push(new rect1(x, y, width, height, color, btncount));
+            // let a1 = new rect1(x,y, width, height,color);
+            // a1.draw();
+            // this.btncount = btncount;
+            btncount++;
             
+            colorM.push(this.color);
+            console.log(colorM)
         }
 
+        makeBtn(100,100,50,50,'red');
+        
+        makeBtn(200,200,50,50,'orange');
+        
+        makeBtn(300,300,50,50,'green');
+        
+
+
+
+        // let a1 = new rect1(x,y, width, height,color)
+      
+
+        canvas.addEventListener("mousemove",function(event){
+            mPositionX = event.clientX-ctx.canvas.offsetLeft;
+            mPositionY = event.clientY-ctx.canvas.offsetTop;
+            console.log(mPositionX,mPositionY)
+
+
+            rects.forEach((rect1) => {
+                if( (mPositionX >= rect1.xpoint)&&(mPositionX <= rect1.xpoint+rect1.row)
+                &&(mPositionY >= rect1.ypoint) && (mPositionY <= rect1.ypoint+rect1.column) 
+                ){
+                    rect1.color = 'blue';
+                    moveState = true;
+                }else{
+                    rect1.color = colorM[rect1.btncount];
+        
+                }
+            })
+
+
+           
+
+        })
+        
+        canvas.addEventListener("click",function(event){
+            mClickPositionX = event.clientX - ctx.canvas.offsetLeft;
+            mClickPositionY = event.clientY - ctx.canvas.offsetTop;
+
+            rects.forEach((rect1) => {
+                if((mClickPositionX>= rect1.xpoint) && (mClickPositionX <= rect1.xpoint+rect1.row)
+                &&(mClickPositionY >= rect1.ypoint) && (mClickPositionY <= rect1.ypoint+rect1.column) && (clickState == false))
+                {
+                    rect1.color = 'black';
+                }
+            })
+
+           
+        })
+
+
+
+        function animate(){
+            requestAnimationFrame(animate);
+            
+
+
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+
+            rects.forEach((rect1) => {
+                rect1.draw();
+            })
+
+
+            // rects.forEach((rect1) => {
+                
+            //     rect1.draw();
+                
+            //     if( (mPositionX >= rect1.xpoint)&&(mPositionX <= rect1.xpoint+rect1.row)
+            //     &&(mPositionY >= rect1.ypoint) && (mPositionY <= rect1.ypoint+rect1.column) && (moveState == false)
+            //     ){
+            //         rect1.color = 'blue';
+            //         moveState = true;
+            //     }else if(
+            //         (mPositionX < rect1.xpoint)&&(mPositionX > rect1.xpoint+rect1.row)&&(mPositionY < rect1.ypoint)&&(mPositionY > rect1.ypoint+rect1.column)
+            //         && (moveState == true)
+            //     ){
+            //         rect1.color = colorM[rect1.btncount];
+            //         moveState = false;
+            //     }
+                
+
+            //     if((mClickPositionX>= rect1.xpoint) && (mClickPositionX <= rect1.xpoint+rect1.row)
+            //     &&(mClickPositionY >= rect1.ypoint) && (mClickPositionY <= rect1.ypoint+rect1.column))
+            //     {
+            //         rect1.color = 'black';
+            //     }
+            // })
+            // rects.forEach((rect1) => {
+            //         if((mClickPositionX>= rect1.xpoint) && (mClickPositionX <= rect1.xpoint+rect1.row)
+            //     &&(mClickPositionY >= rect1.ypoint) && (mClickPositionY <= rect1.ypoint+rect1.column) && (clickState == false))
+            //     {
+            //         rect1.color = 'black';
+            //     }
+
+            // })
+           
+
+        }
+
+        animate();
 
     </script>
 </body>
