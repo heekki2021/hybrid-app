@@ -1,179 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <style>
-        #canvas1{
-            /* background-color: yellow; */
-        }
-    </style>
-</head>
-<body>
+    <style></style>
+  </head>
+  <body>
     <h1 id="hype">test</h1>
-    <canvas id="canvas1" width="500px" height="500px">
-
-    
-    </canvas>
+    <canvas id="canvas1" width="500px" height="500px"> </canvas>
     <script>
-        const canvas = document.getElementById("canvas1")
-        const ctx = canvas.getContext('2d');
-        canvas.style.backgroundColor = "#bbf"
+      const canvas = document.getElementById("canvas1");
+      const ctx = canvas.getContext("2d");
+      canvas.style.backgroundColor = "#bbf";
 
-        const rects = [];
-        
-        class rect1{
-            constructor(xpoint, ypoint, row, column, color, btncount){
-                this.xpoint = xpoint;
-                this.ypoint = ypoint;
-                this.row = row;
-                this.column = column;
-                this.color = color;
-                this.btncount = btncount;
-            }
+      const rects = [];
 
-        
-            draw(){
-                ctx.beginPath();
-                ctx.fillStyle = this.color;
-                ctx.rect(this.xpoint,this.ypoint,this.row,this.column);
-                ctx.fill();
-                ctx.closePath();
-            }
+      class rect1 {
+        constructor(xpoint, ypoint, row, column, color, btncount) {
+          this.xpoint = xpoint;
+          this.ypoint = ypoint;
+          this.row = row;
+          this.column = column;
+          this.color = color;
+          this.btncount = btncount;
+          this.btnClickCount = 0;
+          this.clickState = false;
         }
 
-
-
-        const colorM = [];
-        let btncount=0;
-        let clickState = false;
-        let moveState = false;
-        // var btn1 = new rect1(100,100,150,150,'blue');
-        // btn1.draw(ctx);
-        
-
-        function makeBtn(x, y, width, height ,color){
-            this.x = x;
-            this.y = y;
-            this.width = width;
-            this.height = height;
-            this.color = color;
-            this.btncount = btncount
-
-            rects.push(new rect1(x, y, width, height, color, btncount));
-            // let a1 = new rect1(x,y, width, height,color);
-            // a1.draw();
-            // this.btncount = btncount;
-            btncount++;
-            
-            colorM.push(this.color);
-            console.log(colorM)
+        draw() {
+          ctx.beginPath();
+          ctx.fillStyle = this.color;
+          ctx.rect(this.xpoint, this.ypoint, this.row, this.column);
+          ctx.fill();
+          ctx.closePath();
         }
+      }
 
-        makeBtn(100,100,50,50,'red');
-        
-        makeBtn(200,200,50,50,'orange');
-        
-        makeBtn(300,300,50,50,'green');
-        
+      const colorM = [];
+      let btncount = 0;
+      let moveState = false;
 
+      // var btn1 = new rect1(100,100,150,150,'blue');
+      // btn1.draw(ctx);
 
+      function makeBtn(x, y, width, height, color) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.color = color;
+        this.btncount = btncount;
 
-        // let a1 = new rect1(x,y, width, height,color)
-      
+        rects.push(new rect1(x, y, width, height, color, btncount));
+        // let a1 = new rect1(x,y, width, height,color);
+        // a1.draw();
+        // this.btncount = btncount;
+        btncount++;
 
-        canvas.addEventListener("mousemove",function(event){
-            mPositionX = event.clientX-ctx.canvas.offsetLeft;
-            mPositionY = event.clientY-ctx.canvas.offsetTop;
-            console.log(mPositionX,mPositionY)
+        colorM.push(this.color);
+        console.log(colorM);
+      }
 
+      makeBtn(100, 100, 50, 50, "#FFAEBC");
 
-            rects.forEach((rect1) => {
-                if( (mPositionX >= rect1.xpoint)&&(mPositionX <= rect1.xpoint+rect1.row)
-                &&(mPositionY >= rect1.ypoint) && (mPositionY <= rect1.ypoint+rect1.column) 
-                ){
-                    rect1.color = 'blue';
-                    moveState = true;
-                }else{
-                    rect1.color = colorM[rect1.btncount];
-        
-                }
-            })
+      makeBtn(200, 200, 50, 50, "#A0E7E5");
 
+      makeBtn(300, 300, 50, 50, "#B4F8C8");
 
-           
+      makeBtn(300, 100, 50, 50, "#FBE7C6");
 
-        })
-        
-        canvas.addEventListener("click",function(event){
-            mClickPositionX = event.clientX - ctx.canvas.offsetLeft;
-            mClickPositionY = event.clientY - ctx.canvas.offsetTop;
+      // let a1 = new rect1(x,y, width, height,color)
 
-            rects.forEach((rect1) => {
-                if((mClickPositionX>= rect1.xpoint) && (mClickPositionX <= rect1.xpoint+rect1.row)
-                &&(mClickPositionY >= rect1.ypoint) && (mClickPositionY <= rect1.ypoint+rect1.column) && (clickState == false))
-                {
-                    rect1.color = 'black';
-                }
-            })
+      canvas.addEventListener("mousemove", function (event) {
+        mPositionX = event.clientX - ctx.canvas.offsetLeft;
+        mPositionY = event.clientY - ctx.canvas.offsetTop;
+        console.log(mPositionX, mPositionY);
 
-           
-        })
+        rects.forEach((rect1) => {
+          if (
+            mPositionX >= rect1.xpoint &&
+            mPositionX <= rect1.xpoint + rect1.row &&
+            mPositionY >= rect1.ypoint &&
+            mPositionY <= rect1.ypoint + rect1.column &&
+            rect1.clickState == false
+          ) {
+            rect1.color = "red";
+          } else if (
+            (mPositionX < rect1.xpoint ||
+              mPositionX > rect1.xpoint + rect1.row ||
+              mPositionY < rect1.ypoint ||
+              mPositionY > rect1.ypoint + rect1.column) &&
+            rect1.clickState == false
+          ) {
+            rect1.color = colorM[rect1.btncount];
+          }
+        });
+      });
 
+      canvas.addEventListener("click", function (event) {
+        mClickPositionX = event.clientX - ctx.canvas.offsetLeft;
+        mClickPositionY = event.clientY - ctx.canvas.offsetTop;
 
+        rects.forEach((rect1) => {
+          if (
+            mClickPositionX >= rect1.xpoint &&
+            mClickPositionX <= rect1.xpoint + rect1.row &&
+            mClickPositionY >= rect1.ypoint &&
+            mClickPositionY <= rect1.ypoint + rect1.column &&
+            (rect1.btnClickCount == 0 || rect1.btnClickCount == 1)
+            // rect1.clickState == false
+          ) {
+            rect1.clickState = true;
+            rect1.color = "black";
+            rect1.btnClickCount++;
+            console.log(rect1);
+          }
 
-        function animate(){
-            requestAnimationFrame(animate);
-            
+          if (
+            mClickPositionX >= rect1.xpoint &&
+            mClickPositionX <= rect1.xpoint + rect1.row &&
+            mClickPositionY >= rect1.ypoint &&
+            mClickPositionY <= rect1.ypoint + rect1.column &&
+            rect1.btnClickCount == 2 &&
+            rect1.clickState == true
+          ) {
+            rect1.color = colorM[rect1.btncount];
+            rect1.clickState = false;
+            rect1.btnClickCount = 0;
+          }
+        });
+      });
 
+      function animate() {
+        requestAnimationFrame(animate);
 
-            ctx.clearRect(0,0,canvas.width, canvas.height);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            rects.forEach((rect1) => {
-                rect1.draw();
-            })
+        rects.forEach((rect1) => {
+          rect1.draw();
+        });
+      }
 
-
-            // rects.forEach((rect1) => {
-                
-            //     rect1.draw();
-                
-            //     if( (mPositionX >= rect1.xpoint)&&(mPositionX <= rect1.xpoint+rect1.row)
-            //     &&(mPositionY >= rect1.ypoint) && (mPositionY <= rect1.ypoint+rect1.column) && (moveState == false)
-            //     ){
-            //         rect1.color = 'blue';
-            //         moveState = true;
-            //     }else if(
-            //         (mPositionX < rect1.xpoint)&&(mPositionX > rect1.xpoint+rect1.row)&&(mPositionY < rect1.ypoint)&&(mPositionY > rect1.ypoint+rect1.column)
-            //         && (moveState == true)
-            //     ){
-            //         rect1.color = colorM[rect1.btncount];
-            //         moveState = false;
-            //     }
-                
-
-            //     if((mClickPositionX>= rect1.xpoint) && (mClickPositionX <= rect1.xpoint+rect1.row)
-            //     &&(mClickPositionY >= rect1.ypoint) && (mClickPositionY <= rect1.ypoint+rect1.column))
-            //     {
-            //         rect1.color = 'black';
-            //     }
-            // })
-            // rects.forEach((rect1) => {
-            //         if((mClickPositionX>= rect1.xpoint) && (mClickPositionX <= rect1.xpoint+rect1.row)
-            //     &&(mClickPositionY >= rect1.ypoint) && (mClickPositionY <= rect1.ypoint+rect1.column) && (clickState == false))
-            //     {
-            //         rect1.color = 'black';
-            //     }
-
-            // })
-           
-
-        }
-
-        animate();
-
+      animate();
     </script>
-</body>
+  </body>
 </html>
