@@ -22,24 +22,24 @@
     </style>
   </head>
   <body>
-    <div id="app">
-      <div class="bg_block"></div>
-      <div class="bg_block"></div>
-      <div class="bg_block"></div>
-      <div class="bg_block"></div>
-      <div class="bg_block"></div>
-      <div class="bg_block"></div>
-      <div class="bg_block"></div>
-      <div class="bg_block"></div>
+    <script src="https://unpkg.com/vue@3"></script>
 
-      <div class="bg_block"></div>
-      <div class="bg_block"></div>
-      <div class="bg_block"></div>
-      <div class="bg_block"></div>
-      <div class="bg_block"></div>
-      <div class="bg_block"></div>
-      <div class="bg_block"></div>
-      <div class="bg_block"></div>
+    <div id="app">
+      <div class="bg_block" v-for="index in bg_block_count">{{index}}</div>
     </div>
+
+    <script>
+      const { createApp } = Vue;
+      createApp({
+        data() {
+          return {
+            bg_block_count: 16,
+          };
+        },
+        mounted() {
+          console.log("마운트했쪙");
+        },
+      }).mount("#app");
+    </script>
   </body>
 </html>
