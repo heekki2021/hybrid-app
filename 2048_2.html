@@ -5,27 +5,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+
+    <script src="2048_2.js"></script>
     <style>
       #app {
-        width: 582px;
-        height: 582px;
+        width: 550px;
+        height: 550px;
         background-color: beige;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
         grid-template-rows: 1fr 1fr 1fr 1fr;
         grid-gap: 10px;
         padding: 100px;
+        border-radius: 20px;
       }
+
       .bg_block {
-        background-color: burlywood;
+        background-color: #444444;
+        border-radius: 20px;
+      }
+
+      .upBlock {
+        position: absolute;
+        background-color: #a0db8e;
+        width: 130px;
+        height: 130px;
+        left: 108px;
+        top: 108px;
+        border-radius: 20px;
+        text-align: center;
       }
     </style>
   </head>
   <body>
     <script src="https://unpkg.com/vue@3"></script>
 
+    <div class="upBlock">2</div>
+
     <div id="app">
-      <div class="bg_block" v-for="index in bg_block_count">{{index}}</div>
+      <div class="bg_block" v-for="index in bg_block_count"></div>
     </div>
 
     <script>
