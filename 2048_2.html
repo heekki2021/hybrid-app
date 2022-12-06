@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
 
-    <script src="2048_2.js"></script>
     <style>
       #app {
         width: 550px;
@@ -21,7 +20,6 @@
       }
 
       .bg_block {
-        background-color: #444444;
         border-radius: 20px;
       }
 
@@ -39,13 +37,13 @@
   </head>
   <body>
     <script src="https://unpkg.com/vue@3"></script>
-
+    
     <div class="upBlock">2</div>
-
+    
     <div id="app">
       <div class="bg_block" v-for="index in bg_block_count"></div>
     </div>
-
+    
     <script>
       const { createApp } = Vue;
       createApp({
@@ -58,6 +56,8 @@
           console.log("마운트했쪙");
         },
       }).mount("#app");
-    </script>
+      </script>
+
+
   </body>
 </html>
