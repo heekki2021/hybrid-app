@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #imgBox{
+            width: 300px;
+            
+        }
+    </style>
+
+
+</head>
+<body>
+
+    <div class="buttonBox">
+        <button type="button" onclick="MovePrev()" class="bt">left</button>
+        <button type="button" onclick="MoveNext()" class="bt">right</button>
+    </div>
+
+
+    <br>
+    <br>
+
+    <hr>
+    <img id="imgBox" src="image/i1.png" alt="">
+
+
+
+    
+    <script>
+        var pageNum = 1;
+        function MovePrev(){
+            pageNum--;
+            if(pageNum <= 0)
+            {
+                pageNum = 5
+            }
+            document.getElementById("imgBox").src="image/i"+pageNum.toString()+".png";
+
+        }
+
+
+        function MoveNext(){
+            pageNum++;
+            if(pageNum >= 6)
+            {
+                pageNum = 1
+            }
+
+            document.getElementById("imgBox").src="image/i"+pageNum.toString()+".png";
+
+
+        }
+
+       
+
+    </script>
+
+</body>
+</html>
