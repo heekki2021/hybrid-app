@@ -1,7 +1,7 @@
-function keylog(e) {
-  console.log(e);
-}
-window.addEventListener("keydown", keylog);
+// function keylog(e) {
+//   console.log(e);
+// }
+// window.addEventListener("keydown", keylog);
 
 const items = [];
 
@@ -26,11 +26,11 @@ for(var i = 0; i < 5; i++)
 {
   
   for(var j = 0; j < 5; j++){
+
     fbyf[i][j] = 1;
     
     itemCount++;
   }
-  
 }
 
 
