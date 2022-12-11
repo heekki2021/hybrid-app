@@ -32,7 +32,6 @@ for (var i = 0; i < _4by4Pos.length; i++) {
 
 const ub = new Array(16);
 
-//배열 16개 생성후 PosVector 오브젝트를 담아줌. x,y값을 사용할 수 있게
 const PVarr = new Array(16);
 var k = 0;
 var w = 180;
@@ -52,7 +51,7 @@ const x = 150;
 const y = 150;
 const width = 750;
 const height = 900;
-const radius = 20;
+const radius = 30;
 
 //시작
 ctx.beginPath();
@@ -152,7 +151,95 @@ class block {
     ctx.fillRect(this.x, this.y, this.width, this.height);
     ctx.fillStyle = "#FFFFFF";
     ctx.font = "normal bold 100px Arial, sans-serif";
-    ctx.fillText(this.value, this.x + 47, this.y + 110);
+    ctx.fillText(this.value, this.x + 17, this.y + 110);
+  }
+
+  createBlock_32() {
+    this.value = 32;
+    this.onOff = true;
+    ctx.beginPath();
+    ctx.fillStyle = "#5cf7d3";
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.fillStyle = "#FFFFFF";
+    ctx.font = "normal bold 100px Arial, sans-serif";
+    ctx.fillText(this.value, this.x + 17, this.y + 110);
+  }
+
+  createBlock_64() {
+    this.value = 64;
+    this.onOff = true;
+    ctx.beginPath();
+    ctx.fillStyle = "#5cf7a4";
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.fillStyle = "#FFFFFF";
+    ctx.font = "normal bold 100px Arial, sans-serif";
+    ctx.fillText(this.value, this.x + 17, this.y + 110);
+  }
+
+  createBlock_128() {
+    this.value = 128;
+    this.onOff = true;
+    ctx.beginPath();
+    ctx.fillStyle = "#5cf75c";
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.fillStyle = "#FFFFFF";
+    ctx.font = "normal bold 80px Arial, sans-serif";
+    ctx.fillText(this.value, this.x + 10, this.y + 110);
+  }
+
+  createBlock_256() {
+    this.value = 256;
+    this.onOff = true;
+    ctx.beginPath();
+    ctx.fillStyle = "#b1f75c";
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.fillStyle = "#FFFFFF";
+    ctx.font = "normal bold 80px Arial, sans-serif";
+    ctx.fillText(this.value, this.x + 10, this.y + 110);
+  }
+
+  createBlock_512() {
+    this.value = 512;
+    this.onOff = true;
+    ctx.beginPath();
+    ctx.fillStyle = "#eff75c";
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.fillStyle = "#FFFFFF";
+    ctx.font = "normal bold 80px Arial, sans-serif";
+    ctx.fillText(this.value, this.x + 10, this.y + 110);
+  }
+
+  createBlock_1024() {
+    this.value = 1024;
+    this.onOff = true;
+    ctx.beginPath();
+    ctx.fillStyle = "#f7d55c";
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.fillStyle = "#FFFFFF";
+    ctx.font = "normal bold 60px Arial, sans-serif";
+    ctx.fillText(this.value, this.x + 10, this.y + 110);
+  }
+
+  createBlock_2048() {
+    this.value = 2048;
+    this.onOff = true;
+    ctx.beginPath();
+    ctx.fillStyle = "#f79d5c";
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.fillStyle = "#FFFFFF";
+    ctx.font = "normal bold 60px Arial, sans-serif";
+    ctx.fillText(this.value, this.x + 10, this.y + 110);
+  }
+
+  createBlock_4096() {
+    this.value = 2048;
+    this.onOff = true;
+    ctx.beginPath();
+    ctx.fillStyle = "red";
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.fillStyle = "#FFFFFF";
+    ctx.font = "normal bold 60px Arial, sans-serif";
+    ctx.fillText(this.value, this.x + 10, this.y + 110);
   }
 }
 
@@ -214,13 +301,73 @@ function start() {
   }
 }
 
+// var MoveCheck_Up = true;
+// var MoveCheck_Down = true;
+// var MoveCheck_Left = true;
+// var MoveCheck_Right = true;
+
 function getKey() {
   addEventListener("keydown", function (e) {
     if (e.code == "ArrowUp") {
+      var before = new Array(16);
+      var after = new Array(16);
+      var k = 0;
+      for (var i = 0; i < 4; i++) {
+        for (var j = 0; j < 4; j++) {
+          before[k] = _4by4block[i][j].value;
+          k++;
+        }
+      }
+      k = 0;
       blockMoveUp();
+      for (var i = 0; i < 4; i++) {
+        for (var j = 0; j < 4; j++) {
+          after[k] = _4by4block[i][j].value;
+          k++;
+        }
+      }
+      k = 0;
+      for (var i = 0; i < 4; i++) {
+        for (var j = 0; j < 4; j++) {
+          if (before[k] != after[k]) {
+            randomBlock();
+            return;
+          }
+          k++;
+        }
+      }
+
       console.log(e);
     }
     if (e.code == "ArrowDown") {
+      var before = new Array(16);
+      var after = new Array(16);
+      var k = 0;
+      for (var i = 0; i < 4; i++) {
+        for (var j = 0; j < 4; j++) {
+          before[k] = _4by4block[i][j].value;
+          k++;
+        }
+      }
+      k = 0;
+      blockMoveDown();
+      for (var i = 0; i < 4; i++) {
+        for (var j = 0; j < 4; j++) {
+          after[k] = _4by4block[i][j].value;
+          k++;
+        }
+      }
+      k = 0;
+      for (var i = 0; i < 4; i++) {
+        for (var j = 0; j < 4; j++) {
+          if (before[k] != after[k]) {
+            randomBlock();
+            return;
+          }
+          k++;
+        }
+      }
+
       console.log(e);
     }
     if (e.code == "ArrowLeft") {
@@ -232,37 +379,2183 @@ function getKey() {
   });
 }
 
+var totalScore = 0;
+
+function randomBlock() {
+  var randomRow = Math.floor(Math.random() * 4);
+  var randomColumn = Math.floor(Math.random() * 4);
+  switch (_4by4block[randomRow][randomColumn].onOff) {
+    case true:
+      randomBlock();
+      break;
+    case false:
+      var _2or4 = Math.floor(Math.random() * 4);
+      switch (_2or4) {
+        case 0:
+          _4by4block[randomRow][randomColumn].createBlock_2();
+          break;
+        case 1:
+          _4by4block[randomRow][randomColumn].createBlock_2();
+          break;
+        case 2:
+          _4by4block[randomRow][randomColumn].createBlock_2();
+          break;
+        case 3:
+          _4by4block[randomRow][randomColumn].createBlock_4();
+      }
+      break;
+  }
+}
+
 function blockMoveUp() {
   for (var i = 0; i < 4; i++) {
     for (var j = 0; j < 4; j++) {
-      if (_4by4block[i][j].onOff == true && i == 1) {
-        if (_4by4block[i][j].value == 2) {
-          _4by4block[i - 1][j].createBlock_2();
-          _4by4block[i][j].createBlock_0();
-        }
-        if (_4by4block[i][j].value == 4) {
-          _4by4block[i - 1][j].createBlock_4();
-          _4by4block[i][j].createBlock_0();
-        }
-      } else if (_4by4block[i][j].onOff == true && i == 2) {
-        if (_4by4block[i][j].value == 2) {
-          _4by4block[i - 1][j].createBlock_2();
-          _4by4block[i][j].createBlock_0();
-        }
+      switch (_4by4block[i][j].value) {
+        case 2:
+          console.log(_4by4block[i][j].value);
+          switch (i) {
+            case 1:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_2();
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 2) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_4();
 
-        if (_4by4block[i][j].value == 4) {
-          _4by4block[i - 1][j].createBlock_4();
-          _4by4block[i][j].createBlock_0();
-        }
-      } else if (_4by4block[i][j].onOff == true && i == 3) {
-        if (_4by4block[i][j].value == 2) {
-          _4by4block[i - 1][j].createBlock_2();
-          _4by4block[i][j].createBlock_0();
-        }
-        if (_4by4block[i][j].value == 4) {
-          _4by4block[i - 1][j].createBlock_4();
-          _4by4block[i][j].createBlock_0();
-        }
+                    totalScore += 4;
+                  }
+                  break;
+              }
+              break;
+
+            case 2:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_2();
+                  switch (_4by4block[i - 2][j].onOff) {
+                    case false:
+                      _4by4block[i - 1][j].createBlock_0();
+                      _4by4block[i - 2][j].createBlock_2();
+                      break;
+                    case true:
+                      if (_4by4block[i - 2][j].value == 2) {
+                        _4by4block[i - 1][j].createBlock_0();
+                        _4by4block[i - 2][j].createBlock_4();
+
+                        totalScore += 4;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 2) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_4();
+
+                    totalScore += 4;
+                  }
+                  break;
+              }
+
+              break;
+
+            case 3:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_2();
+                  switch (_4by4block[i - 2][j].onOff) {
+                    case false:
+                      _4by4block[i - 1][j].createBlock_0();
+                      _4by4block[i - 2][j].createBlock_2();
+                      switch (_4by4block[i - 3][j].onOff) {
+                        case false:
+                          _4by4block[i - 2][j].createBlock_0();
+                          _4by4block[i - 3][j].createBlock_2();
+                          break;
+                        case true:
+                          if (_4by4block[i - 3][j].value == 2) {
+                            _4by4block[i - 2][j].createBlock_0();
+                            _4by4block[i - 3][j].createBlock_4();
+
+                            totalScore += 4;
+                          }
+                          break;
+                      }
+                      break;
+                    case true:
+                      if (_4by4block[i - 2][j].value == 2) {
+                        _4by4block[i - 1][j].createBlock_0();
+                        _4by4block[i - 2][j].createBlock_4();
+
+                        totalScore += 4;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 2) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_4();
+
+                    totalScore += 4;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
+        case 4:
+          console.log(_4by4block[i][j].value);
+          switch (i) {
+            case 1:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_4();
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 4) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_8();
+
+                    totalScore += 8;
+                  }
+                  break;
+              }
+              break;
+
+            case 2:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_4();
+                  switch (_4by4block[i - 2][j].onOff) {
+                    case false:
+                      _4by4block[i - 1][j].createBlock_0();
+                      _4by4block[i - 2][j].createBlock_4();
+                      break;
+                    case true:
+                      if (_4by4block[i - 2][j].value == 4) {
+                        _4by4block[i - 1][j].createBlock_0();
+                        _4by4block[i - 2][j].createBlock_8();
+
+                        totalScore += 8;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 4) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_8();
+
+                    totalScore += 8;
+                  }
+                  break;
+              }
+              break;
+
+            case 3:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_4();
+                  switch (_4by4block[i - 2][j].onOff) {
+                    case false:
+                      _4by4block[i - 1][j].createBlock_0();
+                      _4by4block[i - 2][j].createBlock_4();
+                      switch (_4by4block[i - 3][j].onOff) {
+                        case false:
+                          _4by4block[i - 2][j].createBlock_0();
+                          _4by4block[i - 3][j].createBlock_4();
+                          break;
+                        case true:
+                          if (_4by4block[i - 3][j].value == 4) {
+                            _4by4block[i - 2][j].createBlock_0();
+                            _4by4block[i - 3][j].createBlock_8();
+
+                            totalScore += 8;
+                          }
+                          break;
+                      }
+                      break;
+                    case true:
+                      if (_4by4block[i - 2][j].value == 4) {
+                        _4by4block[i - 1][j].createBlock_0();
+                        _4by4block[i - 2][j].createBlock_8();
+
+                        totalScore += 8;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 4) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_8();
+
+                    totalScore += 8;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
+        case 8:
+          console.log(_4by4block[i][j].value);
+          switch (i) {
+            case 1:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_8();
+
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 8) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_16();
+
+                    totalScore += 16;
+                  }
+                  break;
+              }
+              break;
+
+            case 2:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_8();
+                  switch (_4by4block[i - 2][j].onOff) {
+                    case false:
+                      _4by4block[i - 1][j].createBlock_0();
+                      _4by4block[i - 2][j].createBlock_8();
+                      break;
+                    case true:
+                      if (_4by4block[i - 2][j].value == 8) {
+                        _4by4block[i - 1][j].createBlock_0();
+                        _4by4block[i - 2][j].createBlock_16();
+
+                        totalScore += 16;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 8) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_16();
+
+                    totalScore += 16;
+                  }
+                  break;
+              }
+              break;
+
+            case 3:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_8();
+                  switch (_4by4block[i - 2][j].onOff) {
+                    case false:
+                      _4by4block[i - 1][j].createBlock_0();
+                      _4by4block[i - 2][j].createBlock_8();
+                      switch (_4by4block[i - 3][j].onOff) {
+                        case false:
+                          _4by4block[i - 2][j].createBlock_0();
+                          _4by4block[i - 3][j].createBlock_8();
+                          break;
+                        case true:
+                          if (_4by4block[i - 3][j].value == 8) {
+                            _4by4block[i - 2][j].createBlock_0();
+                            _4by4block[i - 3][j].createBlock_16();
+
+                            totalScore += 16;
+                          }
+                          break;
+                      }
+                      break;
+                    case true:
+                      if (_4by4block[i - 2][j].value == 8) {
+                        _4by4block[i - 1][j].createBlock_0();
+                        _4by4block[i - 2][j].createBlock_16();
+
+                        totalScore += 16;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 8) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_16();
+
+                    totalScore += 16;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
+        case 16:
+          console.log(_4by4block[i][j].value);
+          switch (i) {
+            case 1:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_16();
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 16) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_32();
+
+                    totalScore += 32;
+                  }
+                  break;
+              }
+              break;
+
+            case 2:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_16();
+                  switch (_4by4block[i - 2][j].onOff) {
+                    case false:
+                      _4by4block[i - 1][j].createBlock_0();
+                      _4by4block[i - 2][j].createBlock_16();
+                      break;
+                    case true:
+                      if (_4by4block[i - 2][j].value == 16) {
+                        _4by4block[i - 1][j].createBlock_0();
+                        _4by4block[i - 2][j].createBlock_32();
+
+                        totalScore += 32;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 16) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_32();
+
+                    totalScore += 32;
+                  }
+                  break;
+              }
+              break;
+
+            case 3:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_16();
+                  switch (_4by4block[i - 2][j].onOff) {
+                    case false:
+                      _4by4block[i - 1][j].createBlock_0();
+                      _4by4block[i - 2][j].createBlock_16();
+                      switch (_4by4block[i - 3][j].onOff) {
+                        case false:
+                          _4by4block[i - 2][j].createBlock_0();
+                          _4by4block[i - 3][j].createBlock_16();
+                          break;
+                        case true:
+                          if (_4by4block[i - 3][j].value == 16) {
+                            _4by4block[i - 2][j].createBlock_0();
+                            _4by4block[i - 3][j].createBlock_32();
+
+                            totalScore += 32;
+                          }
+                          break;
+                      }
+                      break;
+                    case true:
+                      if (_4by4block[i - 2][j].value == 16) {
+                        _4by4block[i - 1][j].createBlock_0();
+                        _4by4block[i - 2][j].createBlock_32();
+
+                        totalScore += 32;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 16) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_32();
+
+                    totalScore += 32;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
+        case 32:
+          console.log(_4by4block[i][j].value);
+          switch (i) {
+            case 1:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_32();
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 32) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_64();
+
+                    totalScore += 64;
+                  }
+                  break;
+              }
+              break;
+
+            case 2:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_32();
+                  switch (_4by4block[i - 2][j].onOff) {
+                    case false:
+                      _4by4block[i - 1][j].createBlock_0();
+                      _4by4block[i - 2][j].createBlock_32();
+                      break;
+                    case true:
+                      if (_4by4block[i - 2][j].value == 32) {
+                        _4by4block[i - 1][j].createBlock_0();
+                        _4by4block[i - 2][j].createBlock_64();
+
+                        totalScore += 64;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 32) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_64();
+
+                    totalScore += 64;
+                  }
+                  break;
+              }
+              break;
+
+            case 3:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_32();
+                  switch (_4by4block[i - 2][j].onOff) {
+                    case false:
+                      _4by4block[i - 1][j].createBlock_0();
+                      _4by4block[i - 2][j].createBlock_32();
+                      switch (_4by4block[i - 3][j].onOff) {
+                        case false:
+                          _4by4block[i - 2][j].createBlock_0();
+                          _4by4block[i - 3][j].createBlock_32();
+                          break;
+                        case true:
+                          if (_4by4block[i - 3][j].value == 32) {
+                            _4by4block[i - 2][j].createBlock_0();
+                            _4by4block[i - 3][j].createBlock_64();
+
+                            totalScore += 64;
+                          }
+                          break;
+                      }
+                      break;
+                    case true:
+                      if (_4by4block[i - 2][j].value == 32) {
+                        _4by4block[i - 1][j].createBlock_0();
+                        _4by4block[i - 2][j].createBlock_64();
+
+                        totalScore += 64;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 32) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_64();
+
+                    totalScore += 64;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
+        case 64:
+          console.log(_4by4block[i][j].value);
+          switch (i) {
+            case 1:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_64();
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 64) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_128();
+
+                    totalScore += 128;
+                  }
+                  break;
+              }
+              break;
+
+            case 2:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_64();
+                  switch (_4by4block[i - 2][j].onOff) {
+                    case false:
+                      _4by4block[i - 1][j].createBlock_0();
+                      _4by4block[i - 2][j].createBlock_64();
+                      break;
+                    case true:
+                      if (_4by4block[i - 2][j].value == 64) {
+                        _4by4block[i - 1][j].createBlock_0();
+                        _4by4block[i - 2][j].createBlock_128();
+
+                        totalScore += 128;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 64) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_128();
+
+                    totalScore += 128;
+                  }
+                  break;
+              }
+              break;
+
+            case 3:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_64();
+                  switch (_4by4block[i - 2][j].onOff) {
+                    case false:
+                      _4by4block[i - 1][j].createBlock_0();
+                      _4by4block[i - 2][j].createBlock_64();
+                      switch (_4by4block[i - 3][j].onOff) {
+                        case false:
+                          _4by4block[i - 2][j].createBlock_0();
+                          _4by4block[i - 3][j].createBlock_64();
+                          break;
+                        case true:
+                          if (_4by4block[i - 3][j].value == 64) {
+                            _4by4block[i - 2][j].createBlock_0();
+                            _4by4block[i - 3][j].createBlock_128();
+
+                            totalScore += 128;
+                          }
+                          break;
+                      }
+                      break;
+                    case true:
+                      if (_4by4block[i - 2][j].value == 64) {
+                        _4by4block[i - 1][j].createBlock_0();
+                        _4by4block[i - 2][j].createBlock_128();
+
+                        totalScore += 128;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 64) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_128();
+
+                    totalScore += 128;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
+        case 128:
+          console.log(_4by4block[i][j].value);
+          switch (i) {
+            case 1:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_128();
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 128) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_256();
+
+                    totalScore += 256;
+                  }
+                  break;
+              }
+              break;
+
+            case 2:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_128();
+                  switch (_4by4block[i - 2][j].onOff) {
+                    case false:
+                      _4by4block[i - 1][j].createBlock_0();
+                      _4by4block[i - 2][j].createBlock_128();
+                      break;
+                    case true:
+                      if (_4by4block[i - 2][j].value == 128) {
+                        _4by4block[i - 1][j].createBlock_0();
+                        _4by4block[i - 2][j].createBlock_256();
+
+                        totalScore += 256;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 128) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_256();
+
+                    totalScore += 256;
+                  }
+                  break;
+              }
+              break;
+
+            case 3:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_128();
+                  switch (_4by4block[i - 2][j].onOff) {
+                    case false:
+                      _4by4block[i - 1][j].createBlock_0();
+                      _4by4block[i - 2][j].createBlock_128();
+                      switch (_4by4block[i - 3][j].onOff) {
+                        case false:
+                          _4by4block[i - 2][j].createBlock_0();
+                          _4by4block[i - 3][j].createBlock_128();
+                          break;
+                        case true:
+                          if (_4by4block[i - 3][j].value == 128) {
+                            _4by4block[i - 2][j].createBlock_0();
+                            _4by4block[i - 3][j].createBlock_256();
+
+                            totalScore += 256;
+                          }
+                          break;
+                      }
+                      break;
+                    case true:
+                      if (_4by4block[i - 2][j].value == 128) {
+                        _4by4block[i - 1][j].createBlock_0();
+                        _4by4block[i - 2][j].createBlock_256();
+
+                        totalScore += 256;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 128) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_256();
+
+                    totalScore += 256;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
+        case 256:
+          console.log(_4by4block[i][j].value);
+          switch (i) {
+            case 1:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_256();
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 256) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_512();
+
+                    totalScore += 512;
+                  }
+                  break;
+              }
+              break;
+
+            case 2:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_256();
+                  switch (_4by4block[i - 2][j].onOff) {
+                    case false:
+                      _4by4block[i - 1][j].createBlock_0();
+                      _4by4block[i - 2][j].createBlock_256();
+                      break;
+                    case true:
+                      if (_4by4block[i - 2][j].value == 256) {
+                        _4by4block[i - 1][j].createBlock_0();
+                        _4by4block[i - 2][j].createBlock_512();
+
+                        totalScore += 512;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 256) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_512();
+
+                    totalScore += 512;
+                  }
+                  break;
+              }
+              break;
+
+            case 3:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_256();
+                  switch (_4by4block[i - 2][j].onOff) {
+                    case false:
+                      _4by4block[i - 1][j].createBlock_0();
+                      _4by4block[i - 2][j].createBlock_256();
+                      switch (_4by4block[i - 3][j].onOff) {
+                        case false:
+                          _4by4block[i - 2][j].createBlock_0();
+                          _4by4block[i - 3][j].createBlock_256();
+                          break;
+                        case true:
+                          if (_4by4block[i - 3][j].value == 256) {
+                            _4by4block[i - 2][j].createBlock_0();
+                            _4by4block[i - 3][j].createBlock_512();
+
+                            totalScore += 512;
+                          }
+                          break;
+                      }
+                      break;
+                    case true:
+                      if (_4by4block[i - 2][j].value == 256) {
+                        _4by4block[i - 1][j].createBlock_0();
+                        _4by4block[i - 2][j].createBlock_512();
+
+                        totalScore += 512;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 256) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_512();
+
+                    totalScore += 512;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
+        case 512:
+          console.log(_4by4block[i][j].value);
+          switch (i) {
+            case 1:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_512();
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 512) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_1024();
+
+                    totalScore += 1024;
+                  }
+                  break;
+              }
+              break;
+
+            case 2:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_512();
+                  switch (_4by4block[i - 2][j].onOff) {
+                    case false:
+                      _4by4block[i - 1][j].createBlock_0();
+                      _4by4block[i - 2][j].createBlock_512();
+                      break;
+                    case true:
+                      if (_4by4block[i - 2][j].value == 512) {
+                        _4by4block[i - 1][j].createBlock_0();
+                        _4by4block[i - 2][j].createBlock_1024();
+
+                        totalScore += 1024;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 512) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_1024();
+
+                    totalScore += 1024;
+                  }
+                  break;
+              }
+              break;
+
+            case 3:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_512();
+                  switch (_4by4block[i - 2][j].onOff) {
+                    case false:
+                      _4by4block[i - 1][j].createBlock_0();
+                      _4by4block[i - 2][j].createBlock_512();
+                      switch (_4by4block[i - 3][j].onOff) {
+                        case false:
+                          _4by4block[i - 2][j].createBlock_0();
+                          _4by4block[i - 3][j].createBlock_512();
+                          break;
+                        case true:
+                          if (_4by4block[i - 3][j].value == 512) {
+                            _4by4block[i - 2][j].createBlock_0();
+                            _4by4block[i - 3][j].createBlock_1024();
+
+                            totalScore += 1024;
+                          }
+                          break;
+                      }
+                      break;
+                    case true:
+                      if (_4by4block[i - 2][j].value == 512) {
+                        _4by4block[i - 1][j].createBlock_0();
+                        _4by4block[i - 2][j].createBlock_1024();
+
+                        totalScore += 1024;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 512) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_1024();
+
+                    totalScore += 1024;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
+        case 1024:
+          console.log(_4by4block[i][j].value);
+          switch (i) {
+            case 1:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_1024();
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 1024) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_2048();
+
+                    totalScore += 2048;
+                  }
+                  break;
+              }
+              break;
+
+            case 2:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_1024();
+                  switch (_4by4block[i - 2][j].onOff) {
+                    case false:
+                      _4by4block[i - 1][j].createBlock_0();
+                      _4by4block[i - 2][j].createBlock_1024();
+                      break;
+                    case true:
+                      if (_4by4block[i - 2][j].value == 1024) {
+                        _4by4block[i - 1][j].createBlock_0();
+                        _4by4block[i - 2][j].createBlock_2048();
+
+                        totalScore += 2048;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 1024) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_2048();
+
+                    totalScore += 2048;
+                  }
+                  break;
+              }
+              break;
+
+            case 3:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_1024();
+                  switch (_4by4block[i - 2][j].onOff) {
+                    case false:
+                      _4by4block[i - 1][j].createBlock_0();
+                      _4by4block[i - 2][j].createBlock_1024();
+                      switch (_4by4block[i - 3][j].onOff) {
+                        case false:
+                          _4by4block[i - 2][j].createBlock_0();
+                          _4by4block[i - 3][j].createBlock_1024();
+                          break;
+                        case true:
+                          if (_4by4block[i - 3][j].value == 1024) {
+                            _4by4block[i - 2][j].createBlock_0();
+                            _4by4block[i - 3][j].createBlock_2048();
+
+                            totalScore += 2048;
+                          }
+                          break;
+                      }
+                      break;
+                    case true:
+                      if (_4by4block[i - 2][j].value == 1024) {
+                        _4by4block[i - 1][j].createBlock_0();
+                        _4by4block[i - 2][j].createBlock_2048();
+
+                        totalScore += 2048;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 1024) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_2048();
+
+                    totalScore += 2048;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
+        case 2048:
+          switch (i) {
+            case 1:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_2048();
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 2048) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_4096();
+
+                    totalScore += 4096;
+                  }
+                  break;
+              }
+              break;
+
+            case 2:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_2048();
+                  switch (_4by4block[i - 2][j].onOff) {
+                    case false:
+                      _4by4block[i - 1][j].createBlock_0();
+                      _4by4block[i - 2][j].createBlock_2048();
+                      break;
+                    case true:
+                      if (_4by4block[i - 2][j].value == 2048) {
+                        _4by4block[i - 1][j].createBlock_0();
+                        _4by4block[i - 2][j].createBlock_4096();
+
+                        totalScore += 4096;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 2048) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_4096();
+
+                    totalScore += 4096;
+                  }
+                  break;
+              }
+              break;
+
+            case 3:
+              switch (_4by4block[i - 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i - 1][j].createBlock_2048();
+                  switch (_4by4block[i - 2][j].onOff) {
+                    case false:
+                      _4by4block[i - 1][j].createBlock_0();
+                      _4by4block[i - 2][j].createBlock_2048();
+                      switch (_4by4block[i - 3][j].onOff) {
+                        case false:
+                          _4by4block[i - 2][j].createBlock_0();
+                          _4by4block[i - 3][j].createBlock_2048();
+                          break;
+                        case true:
+                          if (_4by4block[i - 3][j].value == 2048) {
+                            _4by4block[i - 2][j].createBlock_0();
+                            _4by4block[i - 3][j].createBlock_4096();
+
+                            totalScore += 4096;
+                          }
+                          break;
+                      }
+                      break;
+                    case true:
+                      if (_4by4block[i - 2][j].value == 2048) {
+                        _4by4block[i - 1][j].createBlock_0();
+                        _4by4block[i - 2][j].createBlock_4096();
+
+                        totalScore += 4096;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i - 1][j].value == 2048) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i - 1][j].createBlock_4096();
+
+                    totalScore += 4096;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
+      }
+    }
+  }
+}
+
+function blockMoveDown() {
+  for (var i = 3; i > -1; i--) {
+    for (var j = 3; j > -1; j--) {
+      switch (_4by4block[i][j].value) {
+        case 2:
+          console.log(_4by4block[i][j].value);
+          switch (i) {
+            case 2:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_2();
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 2) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_4();
+
+                    totalScore += 4;
+                  }
+                  break;
+              }
+              break;
+
+            case 1:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_2();
+                  switch (_4by4block[i + 2][j].onOff) {
+                    case false:
+                      _4by4block[i + 1][j].createBlock_0();
+                      _4by4block[i + 2][j].createBlock_2();
+                      break;
+                    case true:
+                      if (_4by4block[i + 2][j].value == 2) {
+                        _4by4block[i + 1][j].createBlock_0();
+                        _4by4block[i + 2][j].createBlock_4();
+
+                        totalScore += 4;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 2) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_4();
+
+                    totalScore += 4;
+                  }
+                  break;
+              }
+
+              break;
+
+            case 0:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_2();
+                  switch (_4by4block[i + 2][j].onOff) {
+                    case false:
+                      _4by4block[i + 1][j].createBlock_0();
+                      _4by4block[i + 2][j].createBlock_2();
+                      switch (_4by4block[i + 3][j].onOff) {
+                        case false:
+                          _4by4block[i + 2][j].createBlock_0();
+                          _4by4block[i + 3][j].createBlock_2();
+                          break;
+                        case true:
+                          if (_4by4block[i + 3][j].value == 2) {
+                            _4by4block[i + 2][j].createBlock_0();
+                            _4by4block[i + 3][j].createBlock_4();
+
+                            totalScore += 4;
+                          }
+                          break;
+                      }
+                      break;
+                    case true:
+                      if (_4by4block[i + 2][j].value == 2) {
+                        _4by4block[i + 1][j].createBlock_0();
+                        _4by4block[i + 2][j].createBlock_4();
+
+                        totalScore += 4;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 2) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_4();
+
+                    totalScore += 4;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
+        case 4:
+          console.log(_4by4block[i][j].value);
+          switch (i) {
+            case 2:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_4();
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 4) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_8();
+
+                    totalScore += 8;
+                  }
+                  break;
+              }
+              break;
+
+            case 1:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_4();
+                  switch (_4by4block[i + 2][j].onOff) {
+                    case false:
+                      _4by4block[i + 1][j].createBlock_0();
+                      _4by4block[i + 2][j].createBlock_4();
+                      break;
+                    case true:
+                      if (_4by4block[i + 2][j].value == 4) {
+                        _4by4block[i + 1][j].createBlock_0();
+                        _4by4block[i + 2][j].createBlock_8();
+
+                        totalScore += 8;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 4) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_8();
+
+                    totalScore += 8;
+                  }
+                  break;
+              }
+              break;
+
+            case 0:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_4();
+                  switch (_4by4block[i + 2][j].onOff) {
+                    case false:
+                      _4by4block[i + 1][j].createBlock_0();
+                      _4by4block[i + 2][j].createBlock_4();
+                      switch (_4by4block[i + 3][j].onOff) {
+                        case false:
+                          _4by4block[i + 2][j].createBlock_0();
+                          _4by4block[i + 3][j].createBlock_4();
+                          break;
+                        case true:
+                          if (_4by4block[i + 3][j].value == 4) {
+                            _4by4block[i + 2][j].createBlock_0();
+                            _4by4block[i + 3][j].createBlock_8();
+
+                            totalScore += 8;
+                          }
+                          break;
+                      }
+                      break;
+                    case true:
+                      if (_4by4block[i + 2][j].value == 4) {
+                        _4by4block[i + 1][j].createBlock_0();
+                        _4by4block[i + 2][j].createBlock_8();
+
+                        totalScore += 8;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 4) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_8();
+
+                    totalScore += 8;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
+        case 8:
+          console.log(_4by4block[i][j].value);
+          switch (i) {
+            case 2:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_8();
+
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 8) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_16();
+
+                    totalScore += 16;
+                  }
+                  break;
+              }
+              break;
+
+            case 1:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_8();
+                  switch (_4by4block[i + 2][j].onOff) {
+                    case false:
+                      _4by4block[i + 1][j].createBlock_0();
+                      _4by4block[i + 2][j].createBlock_8();
+                      break;
+                    case true:
+                      if (_4by4block[i + 2][j].value == 8) {
+                        _4by4block[i + 1][j].createBlock_0();
+                        _4by4block[i + 2][j].createBlock_16();
+
+                        totalScore += 16;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 8) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_16();
+
+                    totalScore += 16;
+                  }
+                  break;
+              }
+              break;
+
+            case 0:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_8();
+                  switch (_4by4block[i + 2][j].onOff) {
+                    case false:
+                      _4by4block[i + 1][j].createBlock_0();
+                      _4by4block[i + 2][j].createBlock_8();
+                      switch (_4by4block[i + 3][j].onOff) {
+                        case false:
+                          _4by4block[i + 2][j].createBlock_0();
+                          _4by4block[i + 3][j].createBlock_8();
+                          break;
+                        case true:
+                          if (_4by4block[i + 3][j].value == 8) {
+                            _4by4block[i + 2][j].createBlock_0();
+                            _4by4block[i + 3][j].createBlock_16();
+
+                            totalScore += 16;
+                          }
+                          break;
+                      }
+                      break;
+                    case true:
+                      if (_4by4block[i + 2][j].value == 8) {
+                        _4by4block[i + 1][j].createBlock_0();
+                        _4by4block[i + 2][j].createBlock_16();
+
+                        totalScore += 16;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 8) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_16();
+
+                    totalScore += 16;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
+        case 16:
+          console.log(_4by4block[i][j].value);
+          switch (i) {
+            case 2:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_16();
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 16) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_32();
+
+                    totalScore += 32;
+                  }
+                  break;
+              }
+              break;
+
+            case 1:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_16();
+                  switch (_4by4block[i + 2][j].onOff) {
+                    case false:
+                      _4by4block[i + 1][j].createBlock_0();
+                      _4by4block[i + 2][j].createBlock_16();
+                      break;
+                    case true:
+                      if (_4by4block[i + 2][j].value == 16) {
+                        _4by4block[i + 1][j].createBlock_0();
+                        _4by4block[i + 2][j].createBlock_32();
+
+                        totalScore += 32;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 16) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_32();
+
+                    totalScore += 32;
+                  }
+                  break;
+              }
+              break;
+
+            case 0:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_16();
+                  switch (_4by4block[i + 2][j].onOff) {
+                    case false:
+                      _4by4block[i + 1][j].createBlock_0();
+                      _4by4block[i + 2][j].createBlock_16();
+                      switch (_4by4block[i + 3][j].onOff) {
+                        case false:
+                          _4by4block[i + 2][j].createBlock_0();
+                          _4by4block[i + 3][j].createBlock_16();
+                          break;
+                        case true:
+                          if (_4by4block[i + 3][j].value == 16) {
+                            _4by4block[i + 2][j].createBlock_0();
+                            _4by4block[i + 3][j].createBlock_32();
+
+                            totalScore += 32;
+                          }
+                          break;
+                      }
+                      break;
+                    case true:
+                      if (_4by4block[i + 2][j].value == 16) {
+                        _4by4block[i + 1][j].createBlock_0();
+                        _4by4block[i + 2][j].createBlock_32();
+
+                        totalScore += 32;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 16) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_32();
+
+                    totalScore += 32;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
+        case 32:
+          console.log(_4by4block[i][j].value);
+          switch (i) {
+            case 2:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_32();
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 32) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_64();
+
+                    totalScore += 64;
+                  }
+                  break;
+              }
+              break;
+
+            case 1:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_32();
+                  switch (_4by4block[i + 2][j].onOff) {
+                    case false:
+                      _4by4block[i + 1][j].createBlock_0();
+                      _4by4block[i + 2][j].createBlock_32();
+                      break;
+                    case true:
+                      if (_4by4block[i + 2][j].value == 32) {
+                        _4by4block[i + 1][j].createBlock_0();
+                        _4by4block[i + 2][j].createBlock_64();
+
+                        totalScore += 64;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 32) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_64();
+
+                    totalScore += 64;
+                  }
+                  break;
+              }
+              break;
+
+            case 0:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_32();
+                  switch (_4by4block[i + 2][j].onOff) {
+                    case false:
+                      _4by4block[i + 1][j].createBlock_0();
+                      _4by4block[i + 2][j].createBlock_32();
+                      switch (_4by4block[i - 3][j].onOff) {
+                        case false:
+                          _4by4block[i + 2][j].createBlock_0();
+                          _4by4block[i + 3][j].createBlock_32();
+                          break;
+                        case true:
+                          if (_4by4block[i + 3][j].value == 32) {
+                            _4by4block[i + 2][j].createBlock_0();
+                            _4by4block[i + 3][j].createBlock_64();
+
+                            totalScore += 64;
+                          }
+                          break;
+                      }
+                      break;
+                    case true:
+                      if (_4by4block[i + 2][j].value == 32) {
+                        _4by4block[i + 1][j].createBlock_0();
+                        _4by4block[i + 2][j].createBlock_64();
+
+                        totalScore += 64;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 32) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_64();
+
+                    totalScore += 64;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
+        case 64:
+          console.log(_4by4block[i][j].value);
+          switch (i) {
+            case 2:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_64();
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 64) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_128();
+
+                    totalScore += 128;
+                  }
+                  break;
+              }
+              break;
+
+            case 1:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_64();
+                  switch (_4by4block[i + 2][j].onOff) {
+                    case false:
+                      _4by4block[i + 1][j].createBlock_0();
+                      _4by4block[i + 2][j].createBlock_64();
+                      break;
+                    case true:
+                      if (_4by4block[i + 2][j].value == 64) {
+                        _4by4block[i + 1][j].createBlock_0();
+                        _4by4block[i + 2][j].createBlock_128();
+
+                        totalScore += 128;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 64) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_128();
+
+                    totalScore += 128;
+                  }
+                  break;
+              }
+              break;
+
+            case 0:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_64();
+                  switch (_4by4block[i + 2][j].onOff) {
+                    case false:
+                      _4by4block[i + 1][j].createBlock_0();
+                      _4by4block[i + 2][j].createBlock_64();
+                      switch (_4by4block[i + 3][j].onOff) {
+                        case false:
+                          _4by4block[i + 2][j].createBlock_0();
+                          _4by4block[i + 3][j].createBlock_64();
+                          break;
+                        case true:
+                          if (_4by4block[i + 3][j].value == 64) {
+                            _4by4block[i + 2][j].createBlock_0();
+                            _4by4block[i + 3][j].createBlock_128();
+
+                            totalScore += 128;
+                          }
+                          break;
+                      }
+                      break;
+                    case true:
+                      if (_4by4block[i + 2][j].value == 64) {
+                        _4by4block[i + 1][j].createBlock_0();
+                        _4by4block[i + 2][j].createBlock_128();
+
+                        totalScore += 128;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 64) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_128();
+
+                    totalScore += 128;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
+        case 128:
+          console.log(_4by4block[i][j].value);
+          switch (i) {
+            case 2:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_128();
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 128) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_256();
+
+                    totalScore += 256;
+                  }
+                  break;
+              }
+              break;
+
+            case 1:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_128();
+                  switch (_4by4block[i + 2][j].onOff) {
+                    case false:
+                      _4by4block[i + 1][j].createBlock_0();
+                      _4by4block[i + 2][j].createBlock_128();
+                      break;
+                    case true:
+                      if (_4by4block[i + 2][j].value == 128) {
+                        _4by4block[i + 1][j].createBlock_0();
+                        _4by4block[i + 2][j].createBlock_256();
+
+                        totalScore += 256;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 128) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_256();
+
+                    totalScore += 256;
+                  }
+                  break;
+              }
+              break;
+
+            case 0:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_128();
+                  switch (_4by4block[i + 2][j].onOff) {
+                    case false:
+                      _4by4block[i + 1][j].createBlock_0();
+                      _4by4block[i + 2][j].createBlock_128();
+                      switch (_4by4block[i + 3][j].onOff) {
+                        case false:
+                          _4by4block[i + 2][j].createBlock_0();
+                          _4by4block[i + 3][j].createBlock_128();
+                          break;
+                        case true:
+                          if (_4by4block[i + 3][j].value == 128) {
+                            _4by4block[i + 2][j].createBlock_0();
+                            _4by4block[i + 3][j].createBlock_256();
+
+                            totalScore += 256;
+                          }
+                          break;
+                      }
+                      break;
+                    case true:
+                      if (_4by4block[i + 2][j].value == 128) {
+                        _4by4block[i + 1][j].createBlock_0();
+                        _4by4block[i + 2][j].createBlock_256();
+
+                        totalScore += 256;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 128) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_256();
+
+                    totalScore += 256;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
+        case 256:
+          console.log(_4by4block[i][j].value);
+          switch (i) {
+            case 2:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_256();
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 256) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_512();
+
+                    totalScore += 512;
+                  }
+                  break;
+              }
+              break;
+
+            case 1:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_256();
+                  switch (_4by4block[i + 2][j].onOff) {
+                    case false:
+                      _4by4block[i + 1][j].createBlock_0();
+                      _4by4block[i + 2][j].createBlock_256();
+                      break;
+                    case true:
+                      if (_4by4block[i + 2][j].value == 256) {
+                        _4by4block[i + 1][j].createBlock_0();
+                        _4by4block[i + 2][j].createBlock_512();
+
+                        totalScore += 512;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 256) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_512();
+
+                    totalScore += 512;
+                  }
+                  break;
+              }
+              break;
+
+            case 0:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_256();
+                  switch (_4by4block[i + 2][j].onOff) {
+                    case false:
+                      _4by4block[i + 1][j].createBlock_0();
+                      _4by4block[i + 2][j].createBlock_256();
+                      switch (_4by4block[i + 3][j].onOff) {
+                        case false:
+                          _4by4block[i + 2][j].createBlock_0();
+                          _4by4block[i + 3][j].createBlock_256();
+                          break;
+                        case true:
+                          if (_4by4block[i + 3][j].value == 256) {
+                            _4by4block[i + 2][j].createBlock_0();
+                            _4by4block[i + 3][j].createBlock_512();
+
+                            totalScore += 512;
+                          }
+                          break;
+                      }
+                      break;
+                    case true:
+                      if (_4by4block[i + 2][j].value == 256) {
+                        _4by4block[i + 1][j].createBlock_0();
+                        _4by4block[i + 2][j].createBlock_512();
+
+                        totalScore += 512;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 256) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_512();
+
+                    totalScore += 512;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
+        case 512:
+          console.log(_4by4block[i][j].value);
+          switch (i) {
+            case 2:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_512();
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 512) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_1024();
+
+                    totalScore += 1024;
+                  }
+                  break;
+              }
+              break;
+
+            case 1:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_512();
+                  switch (_4by4block[i + 2][j].onOff) {
+                    case false:
+                      _4by4block[i + 1][j].createBlock_0();
+                      _4by4block[i + 2][j].createBlock_512();
+                      break;
+                    case true:
+                      if (_4by4block[i + 2][j].value == 512) {
+                        _4by4block[i + 1][j].createBlock_0();
+                        _4by4block[i + 2][j].createBlock_1024();
+
+                        totalScore += 1024;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 512) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_1024();
+
+                    totalScore += 1024;
+                  }
+                  break;
+              }
+              break;
+
+            case 0:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_512();
+                  switch (_4by4block[i + 2][j].onOff) {
+                    case false:
+                      _4by4block[i + 1][j].createBlock_0();
+                      _4by4block[i + 2][j].createBlock_512();
+                      switch (_4by4block[i + 3][j].onOff) {
+                        case false:
+                          _4by4block[i + 2][j].createBlock_0();
+                          _4by4block[i + 3][j].createBlock_512();
+                          break;
+                        case true:
+                          if (_4by4block[i + 3][j].value == 512) {
+                            _4by4block[i + 2][j].createBlock_0();
+                            _4by4block[i + 3][j].createBlock_1024();
+
+                            totalScore += 1024;
+                          }
+                          break;
+                      }
+                      break;
+                    case true:
+                      if (_4by4block[i + 2][j].value == 512) {
+                        _4by4block[i + 1][j].createBlock_0();
+                        _4by4block[i + 2][j].createBlock_1024();
+
+                        totalScore += 1024;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 512) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_1024();
+
+                    totalScore += 1024;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
+        case 1024:
+          console.log(_4by4block[i][j].value);
+          switch (i) {
+            case 2:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_1024();
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 1024) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_2048();
+
+                    totalScore += 2048;
+                  }
+                  break;
+              }
+              break;
+
+            case 1:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_1024();
+                  switch (_4by4block[i + 2][j].onOff) {
+                    case false:
+                      _4by4block[i + 1][j].createBlock_0();
+                      _4by4block[i + 2][j].createBlock_1024();
+                      break;
+                    case true:
+                      if (_4by4block[i + 2][j].value == 1024) {
+                        _4by4block[i + 1][j].createBlock_0();
+                        _4by4block[i + 2][j].createBlock_2048();
+
+                        totalScore += 2048;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 1024) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_2048();
+
+                    totalScore += 2048;
+                  }
+                  break;
+              }
+              break;
+
+            case 0:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_1024();
+                  switch (_4by4block[i + 2][j].onOff) {
+                    case false:
+                      _4by4block[i + 1][j].createBlock_0();
+                      _4by4block[i + 2][j].createBlock_1024();
+                      switch (_4by4block[i + 3][j].onOff) {
+                        case false:
+                          _4by4block[i + 2][j].createBlock_0();
+                          _4by4block[i + 3][j].createBlock_1024();
+                          break;
+                        case true:
+                          if (_4by4block[i + 3][j].value == 1024) {
+                            _4by4block[i + 2][j].createBlock_0();
+                            _4by4block[i + 3][j].createBlock_2048();
+
+                            totalScore += 2048;
+                          }
+                          break;
+                      }
+                      break;
+                    case true:
+                      if (_4by4block[i + 2][j].value == 1024) {
+                        _4by4block[i + 1][j].createBlock_0();
+                        _4by4block[i + 2][j].createBlock_2048();
+
+                        totalScore += 2048;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 1024) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_2048();
+
+                    totalScore += 2048;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
+        case 2048:
+          switch (i) {
+            case 2:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_2048();
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 2048) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_4096();
+
+                    totalScore += 4096;
+                  }
+                  break;
+              }
+              break;
+
+            case 1:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_2048();
+                  switch (_4by4block[i + 2][j].onOff) {
+                    case false:
+                      _4by4block[i + 1][j].createBlock_0();
+                      _4by4block[i + 2][j].createBlock_2048();
+                      break;
+                    case true:
+                      if (_4by4block[i + 2][j].value == 2048) {
+                        _4by4block[i + 1][j].createBlock_0();
+                        _4by4block[i + 2][j].createBlock_4096();
+
+                        totalScore += 4096;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 2048) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_4096();
+
+                    totalScore += 4096;
+                  }
+                  break;
+              }
+              break;
+
+            case 0:
+              switch (_4by4block[i + 1][j].onOff) {
+                case false:
+                  _4by4block[i][j].createBlock_0();
+                  _4by4block[i + 1][j].createBlock_2048();
+                  switch (_4by4block[i + 2][j].onOff) {
+                    case false:
+                      _4by4block[i + 1][j].createBlock_0();
+                      _4by4block[i + 2][j].createBlock_2048();
+                      switch (_4by4block[i + 3][j].onOff) {
+                        case false:
+                          _4by4block[i + 2][j].createBlock_0();
+                          _4by4block[i + 3][j].createBlock_2048();
+                          break;
+                        case true:
+                          if (_4by4block[i + 3][j].value == 2048) {
+                            _4by4block[i + 2][j].createBlock_0();
+                            _4by4block[i + 3][j].createBlock_4096();
+
+                            totalScore += 4096;
+                          }
+                          break;
+                      }
+                      break;
+                    case true:
+                      if (_4by4block[i + 2][j].value == 2048) {
+                        _4by4block[i + 1][j].createBlock_0();
+                        _4by4block[i + 2][j].createBlock_4096();
+
+                        totalScore += 4096;
+                      }
+                      break;
+                  }
+                  break;
+                case true:
+                  if (_4by4block[i + 1][j].value == 2048) {
+                    _4by4block[i][j].createBlock_0();
+                    _4by4block[i + 1][j].createBlock_4096();
+
+                    totalScore += 4096;
+                  }
+                  break;
+              }
+              break;
+          }
+          break;
       }
     }
   }
@@ -319,6 +2612,12 @@ bb15.createBlock();
 
 var bb16 = new baseBlock(720, 720, 150, 150);
 bb16.createBlock();
+
+// _4by4block[2][0].createBlock_4();
+// _4by4block[3][0].createBlock_4();
+
+// _4by4block[2][1].createBlock_2();
+// _4by4block[3][1].createBlock_2();
 
 start();
 getKey();
