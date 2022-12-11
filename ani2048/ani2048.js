@@ -195,7 +195,7 @@ class block {
     ctx.fillRect(this.x, this.y, this.width, this.height);
     ctx.fillStyle = "#FFFFFF";
     ctx.font = "normal bold 70px Arial, sans-serif";
-    ctx.fillText(this.value, this.x + 14, this.y + 100);
+    ctx.fillText(this.value, this.x + 15, this.y + 100);
   }
 
   createBlock_512() {
